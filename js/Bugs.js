@@ -92,7 +92,7 @@ function KillerBug(){
 	this.stepsAtLocation = 0;
 	
 };
-KillerBug.prototype.character = "*";
+KillerBug.prototype.character = "$";
 creatureTypes.register(KillerBug);
 KillerBug.prototype.act = function(surroundings){	
 	var rand = randomElement(directions.names());
@@ -101,3 +101,21 @@ KillerBug.prototype.act = function(surroundings){
 		direction : rand
 	};
 };
+
+//lichen creature
+function Lichen() {
+  this.energy = 5;
+};
+Lichen.prototype.character = "*";
+creatureTypes.register(Lichen);
+Lichen.prototype.act = function(surroundings) {
+  var emptySpace = findDirections(surroundings, " ");
+  if (this.energy >= 13 && emptySpace.length > 0)
+    return {type: "reproduce", direction: randomElement(emptySpace)};
+  else if (this.energy < 20)
+    return {type: "photosynthese"};
+  else
+    return {type: "wait"};
+};
+
+

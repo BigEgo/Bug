@@ -16,7 +16,6 @@ LifeLikeTerrarium.prototype.constructor = LifeLikeTerrarium;
 LifeLikeTerrarium.prototype.processCreature = function(creature) {
 	var surroundings = this.listSurroundings(creature.point);
 	var action = creature.object.act(surroundings);
-
 	var target = undefined;
 	var valueAtTarget = undefined;
 	if (action.direction && directions.contains(action.direction)) {
@@ -56,5 +55,14 @@ LifeLikeTerrarium.prototype.processCreature = function(creature) {
 	}
 
 	if (creature.object.energy <= 0)
-		this.grid.setValueAt(creature.point, undefined);
+		this.grid.setValueAt(creature.point, undefined);	
 }; 
+function findDirections(surroundings, wanted) {
+  var found = [];
+  directions.each(function(name) {
+    if (surroundings[name] == wanted)
+      found.push(name);
+  });
+  return found;
+}
+
