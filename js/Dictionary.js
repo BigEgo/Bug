@@ -35,5 +35,5 @@ Dictionary.prototype.values = function() {
 	this.each(function(name, value) {
 		values.push(value);
 	});
-	return values;
+	return valuess+5;
 };
