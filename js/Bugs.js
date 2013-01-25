@@ -104,18 +104,104 @@ KillerBug.prototype.act = function(surroundings){
 
 //lichen creature
 function Lichen() {
-  this.energy = 5;
+    this.name = "Lichen";
+    this.energy = 50;
 };
 Lichen.prototype.character = "*";
 creatureTypes.register(Lichen);
 Lichen.prototype.act = function(surroundings) {
-  var emptySpace = findDirections(surroundings, " ");
-  if (this.energy >= 13 && emptySpace.length > 0)
-    return {type: "reproduce", direction: randomElement(emptySpace)};
-  else if (this.energy < 20)
-    return {type: "photosynthese"};
-  else
-    return {type: "wait"};
-};
+    var emptySpace = findDirections(surroundings, " ");
+    if (this.energy >= 130 && emptySpace.length > 0) {
+        return {
+            type : "reproduce",
+            direction : randomElement(emptySpace)
+        };
+    } else if (this.energy < 200) {
+        return {
+            type : "photosynthese"
+        };
+    } else {
+        return {
+            type : "wait"
+        };
+    }
+}; 
+
+
+//lichen eater creature
+function LichenEater () {
+    this.name = "Lichen Eater";
+    this.energy = 100;
+    this.direction = "ne";
+}
+LichenEater.prototype.character = "c";
+creatureTypes.register(LichenEater);
+LichenEater.prototype.act = function (surroundings){
+    var emptySpace = findDirections(surroundings, " ");
+    var lichenNear = findDirections(surroundings, "*");
+    if (this.energy >= 300 && emptySpace.length > 0){
+        return {
+            type: "reproduce",
+            direction: randomElement(emptySpace)
+        };        
+    } else if (lichenNear.length > 1) {
+        return {
+            type: "eat",
+            direction: randomElement(lichenNear)
+        };
+    } else if (emptySpace.length > 0){
+        if (surroundings[this.direction] != " ")
+              this.direction = randomElement(emptySpace);
+        return {
+            type: "move",
+            direction: this.direction
+        };
+    } else {
+        return {
+            type: "wait"
+        };
+    }
+}
+
+function EaterKiller () {
+    this.name = "Eater Killer";
+    this.prey = "Lichen Eater";
+    this.energy = 100;  
+    this.lastLocation = undefined;
+    this.stepsAtLocation = 0;
+    this.direction = randomElement(directions.names());
+}
+EaterKiller.prototype.character = "Y";
+creatureTypes.register(EaterKiller);
+EaterKiller.prototype.act = function (surroundings){
+    var rand = randomElement(directions.names());
+    var emptySpace = findDirections(surroundings, " ");
+    if (emptySpace.length===0){
+        return { 
+            type: "wait"
+            }
+    } else if (this.energy >=140) { 
+        return { 
+            type: "reproduce",
+            direction: randomElement(emptySpace)
+        };
+    } else if (this.energy >= 80){
+        return {
+            type: "move",
+            direction: rand
+        };
+         
+    } else if (this.energy < 50){ 
+        return{
+            type: "kill",  
+            direction: rand           
+        };
+    } else {
+        return {
+            type: "move",
+            direction : rand
+        };
+    }
+}
 
 

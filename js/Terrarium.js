@@ -83,6 +83,30 @@ Terrarium.prototype.listSurroundings = function(center) {
 	return result;
 };
 
+
+//loops through the active creatures and pushes the one nearest to killer bug (distance formula).
+Terrarium.prototype.nearestTarget = function(point, name) {       
+    var nearest = {
+        distance : 999
+    };
+    this.forEach(this.listActingCreatures(), function(x) {
+        if (x.object.name === name) {
+            if (point.distance(x.point) <= nearest.distance)
+                nearest = {
+                    object : x,
+                    point : x.point,
+                    distance : point.distance(x.point),
+                    name : x.object.name,
+                    energy: x.object.energy
+                };
+        }
+    });
+    if (nearest.object){
+    return nearest;
+    } else {
+        return undefined;
+    }
+}; 
 //process the creature and assign actions
 Terrarium.prototype.processCreature = function(creature) {
 	var surroundings = this.listSurroundings(creature.point),
