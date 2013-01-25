@@ -135,7 +135,8 @@ LifeLikeTerrarium.prototype.processCreature = function(creature) {
 
 	if (creature.object.energy <= 0){	   
 	    if (creature.object.name == "Eater Killer"){
-	        var rand = Math.ceil(Math.random()*4);
+	        console.log("dies!");
+	        var rand = Math.ceil(Math.random()*10);
 	        if (rand === 1){
 	             console.log("spawns!");
                 this.grid.setValueAt(creature.point, elementFromCharacter("c"));

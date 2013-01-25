@@ -4,9 +4,9 @@
 
 
 var thePlan = ["############################",
-			   "#*            Y           *#",
-			   "#            *             #",
-			   "#          #####           #",
+			   "#*   o        Y           *#",
+			   "#            *        ~    #",
+			   "#   !      #####           #",
 			   "##        *#   #    ##     #",
 			   "###        #*  #     #     #",
 			   "#          #####     #     #",
@@ -56,6 +56,28 @@ function paint() {
 	newSpan.appendChild(docfrag);
 	newSpan.setAttribute("id", "one");
 	parent.replaceChild(newSpan, span1);
+	
+	
+	//stats
+	var statsDiv = document.getElementById("stats");
+	var statsSpan = document.createElement("span");
+	var statsParent = statsDiv.parentNode;
+	var statsFrag = document.createDocumentFragment();
+	var stats = getStats(terrarium).sort();          
+	
+    stats.forEach(function(e, i) {
+        var table = document.createElement("li");
+        table.textContent = e.name + ": " + e.count;
+        statsFrag.appendChild(table);
+    });
+    
+    statsSpan.appendChild(statsFrag);
+    statsSpan.setAttribute("id", "stats");
+    statsParent.replaceChild(statsSpan, statsDiv);
+    
+
+
+	//step for moving the terrarium through time
 	terrarium.step();
 }
 
