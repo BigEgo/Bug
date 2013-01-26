@@ -233,10 +233,20 @@ Terrarium.prototype.forEach = function(object, action){
 };
 //making the grid refresh walk
 Terrarium.prototype.step = function() {
-	this.forEach(this.listActingCreatures(), bind(this.processCreature, this));
-	// if (this.onStep)
-		// this.onStep();
+    var creatures = this.listActingCreatures();
+    creatures.forEach(bind(this.processCreature, this));
+    
+	//this.forEach(this.listActingCreatures(), bind(this.processCreature, this));
+	
 };
+
+/*
+function bind(func, object) {
+    return function() {
+        return func.apply(object, arguments);
+    };
+}
+*/
 
 /*
  old ported code that is not relevant

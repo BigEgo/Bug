@@ -97,7 +97,7 @@ creatureTypes.register(KillerBug);
 KillerBug.prototype.act = function(surroundings){	
 	var rand = randomElement(directions.names());
 	return{
-		type: "kill",
+		type: "eat",
 		direction : rand
 	};
 };
@@ -139,12 +139,12 @@ creatureTypes.register(LichenEater);
 LichenEater.prototype.act = function (surroundings){
     var emptySpace = findDirections(surroundings, " ");
     var lichenNear = findDirections(surroundings, "*");
-    if (this.energy >= 300 && emptySpace.length > 0){
+    if (this.energy >= 500 && emptySpace.length > 0){
         return {
             type: "reproduce",
             direction: randomElement(emptySpace)
         };        
-    } else if (lichenNear.length > 1) {
+    } else if (lichenNear.length > 3) {
         return {
             type: "eat",
             direction: randomElement(lichenNear)

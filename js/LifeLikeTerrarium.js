@@ -39,7 +39,7 @@ LifeLikeTerrarium.prototype.processCreature = function(creature) {
 			creature.object.energy += valueAtTarget.energy;
 		}
 	} else if (action.type == "photosynthese") {
-		creature.object.energy += 10;
+		creature.object.energy += 20;
 	} else if (action.type == "reproduce") {
 		if (target && !valueAtTarget) {
 			var species = characterFromElement(creature.object);
@@ -134,11 +134,10 @@ LifeLikeTerrarium.prototype.processCreature = function(creature) {
 	}
 
 	if (creature.object.energy <= 0){	   
-	    if (creature.object.name == "Eater Killer"){
-	        console.log("dies!");
+	    if (creature.object.name == "Eater Killer"){	        
 	        var rand = Math.ceil(Math.random()*10);
 	        if (rand === 1){
-	             console.log("spawns!");
+	             console.log(creature.object.name + " spawns two monsters!");
                 this.grid.setValueAt(creature.point, elementFromCharacter("c"));
             } else{ 
                 this.grid.setValueAt(creature.point, undefined);

@@ -12,25 +12,146 @@
 			<script type="text/javascript" src="js/Dictionary.js"></script>
 			<script type="text/javascript" src="js/Bugs.js"></script>
 			<script type="text/javascript" src="js/Run.js"></script>
+		 <style type="text/css">
+		    
+         li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+		 </style> 
+    
 	</head>
+	
 	<body>
 		<h1>Buggy McBuggersons</h1>
 		
-		<div>
+		<div id="magic">
+		    		    
 			<span id="one"> </span>
 		</div>
 		
+        <span> 
+            <br><form name="stepSize" method="POST">
+                
+                   <b>Enter Step Size (ms)</b>
+                
+                <p>
+                    <input type="text" id="step" value="300" >                   
+                    <br>
+                    <input type="button" value="Start" onclick="start();">
+                    <input type="button" value="Stop" onclick="stop();">
+                    <input type="button" value="Reset" onclick="restart();">
+                    <br>
 
+                </p>
+            </form>            
+            </span>
 		<div> 
+		    <br>
 		  <span id="stats"></span> 
 		  
 		  
 		</div>
          <script type="text/javascript">          
         //refreshes the window every x000 miliseconds
-        paint();        
-        var interval = window.setInterval(paint, 1000);
+            var thePlan =
+          ["#####################################################################",
+           "#                                                                 o #",
+           "#  *                           c                                    #",
+           "#                                                                   #",
+           "#       c     !                                  *                 *#",
+           "#                                      c                            #",
+           "#                             $                                     #",
+           "#              *                                                    #",
+           "#           ########                                                #",
+           "#         **#*     #                                                #",
+           "#            ######             ~                                   #",
+           "#               *             ~   ~                 !               #",
+           "#                             ~   ~                                 #",
+           "#                               ~                                   #",
+           "#      c                                                            #",
+           "#                                                                   #",
+           "#                                                                   #",
+           "# *                                                                 #",
+           "#                                        Y                          #",
+           "#                             c                                     #",
+           "#   *                                 !                             #",
+           "#                                                                   #",
+           "#                                         c                         #",
+           "#*            *                                                    **",
+           "#####################################################################"
+            ];
+       /* var thePlan = ["############################",
+                       "#*   o        Y           *#",
+                       "#            *        ~    #",
+                       "#   !      #####           #",
+                       "##        *#   #    ##     #",
+                       "###        #*  #     #     #",
+                       "#          #####     #     #",
+                       "#   ####                c  #",
+                       "#   ##*                    #",
+                       "#   #                  #####",
+                       "# * #       *             *#",
+                       "############################"]; 
+                               
         
+        
+        
+        var thePlan = ["############################",
+                       "#                     ######",
+                       "#    ***                **##",
+                       "#   *##**         **  c  *##",
+                       "#    ***     c    ##**    *#",
+                       "#                 ##***   *#",
+                       "#                 ##**    *#",
+                       "#           #*            *#",
+                       "#*          #**           *#",
+                       "#***        ##**    Y    **#",
+                       "#*****     ###***       *###",
+                       "############################"];*/
+        
+                       
+        //var terrarium = new Terrarium(thePlan);                       
+
+        var terrarium = new LifeLikeTerrarium(thePlan);
+        paint();     
+        var interval = undefined;       
+        var running = false;
+        function start(){
+            var stepValue = document.forms["stepSize"].elements["step"].value;
+            stepValue = Number(stepValue);
+            if (typeof stepValue === "number" && !isNaN(stepValue) && running == false){
+               interval = window.setInterval(paint, stepValue);
+               running = true;
+            } else if (running == true){
+                return;
+             } else {
+                 window.alert("Please enter a step size in milliseconds");
+                
+            }
+        }
+            
+        function stop() {
+           interval = window.clearInterval(interval);
+           running = false;
+        }
+
+        function restart() {           
+            
+            var mydiv = document.getElementById('magic');
+                        while (mydiv.firstChild) {
+                            mydiv.removeChild(mydiv.firstChild);
+                        }                        
+                        var newSpan = document.createElement("span");                       
+                        newSpan.setAttribute("id", "one");
+                        mydiv.appendChild(newSpan);            
+           
+            terrarium = new LifeLikeTerrarium(thePlan);
+            paint();
+           
+
+            }
         </script>
 	</body>
 </html>

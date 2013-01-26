@@ -44,32 +44,6 @@ function bind(func, object) {
 }
 
 //returns stats
-function getStats(object, func){
-   var data = func.apply(object, this);
-   var rawStats = [];
-   var names = [];
-   var stats = [];
-   for (var x in data){      
-       var s = String(data[x].object.constructor).split(" ")[1].split("(")[0];          
-       rawStats.push(s);      
-       if (names.indexOf(s) === -1){
-            names.push(s);
-            }
-    }
-    for (i=0; i<names.length; i++){
-        var count = 0;
-        index = rawStats.indexOf(names[i]);
-        while (index !== -1){
-            count++;
-            index = rawStats.indexOf(names[i], index + 1);            
-        }
-        stats.push({name: names[i], count: count});
-
-    }
-    console.log(stats);
-    return stats;
-  
-}
 
 function getStats(object){
    var data = (object.listActingCreatures());
@@ -98,7 +72,7 @@ function getStats(object){
     }
     return stats;
   
-};Hello
+};
 
 
 
