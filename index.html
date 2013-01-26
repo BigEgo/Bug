@@ -13,12 +13,16 @@
 			<script type="text/javascript" src="js/Bugs.js"></script>
 			<script type="text/javascript" src="js/Run.js"></script>
 		 <style type="text/css">
-		    
-         li {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+            li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            td {
+                width: 10px;
+                height: 10px; 
+                padding: 2px;
+            }
 		 </style> 
     
 	</head>
@@ -55,7 +59,7 @@
 		</div>
          <script type="text/javascript">          
         //refreshes the window every x000 miliseconds
-            var thePlan =
+           /* var thePlan =
           ["#####################################################################",
            "#                                                                 o #",
            "#  *                           c                                    #",
@@ -81,8 +85,8 @@
            "#                                         c                         #",
            "#*            *                                                    **",
            "#####################################################################"
-            ];
-       /* var thePlan = ["############################",
+            ];*/
+        var thePlan = ["############################",
                        "#*   o        Y           *#",
                        "#            *        ~    #",
                        "#   !      #####           #",
@@ -90,14 +94,14 @@
                        "###        #*  #     #     #",
                        "#          #####     #     #",
                        "#   ####                c  #",
-                       "#   ##*                    #",
+                       "#   ##*      $             #",
                        "#   #                  #####",
                        "# * #       *             *#",
                        "############################"]; 
                                
         
         
-        
+        /*
         var thePlan = ["############################",
                        "#                     ######",
                        "#    ***                **##",
@@ -116,8 +120,10 @@
 
         var terrarium = new LifeLikeTerrarium(thePlan);
         paint();     
-        var interval = undefined;       
+        var interval = undefined;
         var running = false;
+        var timeElapsed = 0;
+        var stepsTaken = 0;
         function start(){
             var stepValue = document.forms["stepSize"].elements["step"].value;
             stepValue = Number(stepValue);
@@ -137,7 +143,7 @@
            running = false;
         }
 
-        function restart() {           
+        function restart() {
             
             var mydiv = document.getElementById('magic');
                         while (mydiv.firstChild) {
@@ -148,10 +154,16 @@
                         mydiv.appendChild(newSpan);            
            
             terrarium = new LifeLikeTerrarium(thePlan);
-            paint();
-           
-
+            timeElapsed = 0;
+            stepsTaken = 0;
+            paint();            
             }
+          function timer(){                       
+                  timeElapsed += +document.forms["stepSize"].elements["step"].value;
+                  stepsTaken++;
+                  return [timeElapsed,stepsTaken];
+                          
+          }
         </script>
 	</body>
 </html>

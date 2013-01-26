@@ -90,6 +90,7 @@ function KillerBug(){
 	this.name = "Killer Bug";
 	this.lastLocation = undefined;
 	this.stepsAtLocation = 0;
+	this.prey = "";
 	
 };
 KillerBug.prototype.character = "$";
@@ -97,7 +98,7 @@ creatureTypes.register(KillerBug);
 KillerBug.prototype.act = function(surroundings){	
 	var rand = randomElement(directions.names());
 	return{
-		type: "eat",
+		type: "kill",
 		direction : rand
 	};
 };
@@ -144,7 +145,7 @@ LichenEater.prototype.act = function (surroundings){
             type: "reproduce",
             direction: randomElement(emptySpace)
         };        
-    } else if (lichenNear.length > 3) {
+    } else if (lichenNear.length > 2) {
         return {
             type: "eat",
             direction: randomElement(lichenNear)

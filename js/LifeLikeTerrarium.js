@@ -12,7 +12,28 @@ function LifeLikeTerrarium(plan) {
 LifeLikeTerrarium.prototype = clone(Terrarium.prototype);
 LifeLikeTerrarium.prototype.constructor = LifeLikeTerrarium; 
 
+//returns a string grid for friendly for DOM purposes
+Terrarium.prototype.toDom = function() {
+  var characters = [];
+  var endOfLine = this.grid.width-1;
+  this.grid.each(
+    function(point, value){
+        characters.push(characterForDom(value));
+        if(point.x == endOfLine){
+            characters.push(">");
+        }
+    }
+  );
+  return characters;
+};
+function characterForDom(element){
+    if(element == undefined){
+        return " ";
+    }
+    else return element.character;
+}
 
+//new process creatures method
 LifeLikeTerrarium.prototype.processCreature = function(creature) {    
  	var surroundings = this.listSurroundings(creature.point);
 	var action = creature.object.act(surroundings);
